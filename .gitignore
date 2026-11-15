@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# Data — raw downloads and processed binaries stay local
+data/raw/
+data/processed/*.parquet
+data/processed/*.gpkg
+
+# Eval results
+eval/results/*.csv
+eval/results/*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

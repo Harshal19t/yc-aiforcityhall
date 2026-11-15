@@ -1,0 +1,491 @@
+# Householder permitted development: Class A (enlargement, improvement or alteration of a dwellinghouse)
+# Source: Town and Country Planning (General Permitted Development) (England) Order 2015,
+#         Schedule 2, Part 1, Class A, as amended (current revised text).
+#
+# Verified against: legislation.gov.uk SI 2015/596 Schedule 2 Part 1 (current amended text)
+# Last verified: 2026-11-15
+#
+# verify: false  = checked against current legislation and confirmed correct
+# verify: true   = still needs manual check
+#
+# Schema
+#   id:          unique rule id
+#   kind:        threshold | blocker | interpretive
+#   description: plain-English summary
+#   when:        fields that must equal a value (or be in a list) for the rule to apply
+#   fails_if:    list of conditions, ALL must be true for the rule to fail. {field, op, value}; op: gt lt eq
+#   outcome:     needs_permission | prior_approval_possible | other_consent_required | needs_review
+#   citation:    exact sub-paragraph reference
+#   verify:      false when checked
+
+rules:
+
+  # =========================================================================
+  # BLOCKERS — Class A does not apply at all
+  # =========================================================================
+
+  - id: not_a_flat
+    kind: blocker
+    description: >
+      Part 1 Class A applies to dwellinghouses only. Flats and maisonettes are excluded.
+      Class A grants permission for the "enlargement, improvement or other alteration of a
+      dwellinghouse" — a flat is not a dwellinghouse.
+    when: {}
+    fails_if:
+      - {field: dwelling_type, op: eq, value: flat}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A — Permitted Development (dwellinghouse only)"
+    verify: false
+
+  - id: change_of_use_exclusion
+    kind: blocker
+    description: >
+      Class A does not apply if planning permission to use the building as a dwellinghouse
+      was granted only by virtue of Class G, M, MA, N, P, PA or Q of Part 3 (changes of use).
+    when: {}
+    fails_if:
+      - {field: permitted_use_only, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(a)"
+    verify: false
+
+  - id: part_20_exclusion
+    kind: blocker
+    description: >
+      Class A does not apply if the dwellinghouse was built under Part 20 of Schedule 2
+      (permitted development right for construction of new dwellinghouses).
+    when: {}
+    fails_if:
+      - {field: built_under_part_20, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(l)"
+    verify: false
+
+  - id: article_4_direction
+    kind: blocker
+    description: >
+      An Article 4 direction made by the local planning authority withdraws specified
+      permitted development rights in a defined area. If a relevant Article 4 direction
+      covers this property and removes Class A rights, full planning permission is needed.
+    when: {}
+    fails_if:
+      - {field: article_4, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Art 4; local Article 4 direction datasets (planning.data.gov.uk)"
+    verify: false
+
+  - id: listed_building_consent
+    kind: blocker
+    description: >
+      A listed building requires listed building consent for any works that affect its
+      character. This is separate from (and additional to) any planning permission or PD
+      right. The engine flags this and stops; LBC is out of scope.
+    when: {}
+    fails_if:
+      - {field: listed, op: eq, value: true}
+    outcome: other_consent_required
+    citation: "Planning (Listed Buildings and Conservation Areas) Act 1990 s.7"
+    verify: false
+
+  # =========================================================================
+  # THRESHOLDS — apply everywhere (not Article 2(3)-specific)
+  # =========================================================================
+
+  - id: curtilage_coverage_50pc
+    kind: threshold
+    description: >
+      As a result of the works, the total area of ground covered by buildings within
+      the curtilage (other than the original dwellinghouse) must not exceed 50% of the
+      total curtilage area (excluding the ground area of the original dwellinghouse).
+    when: {}
+    fails_if:
+      - {field: curtilage_cover_ratio, op: gt, value: 0.5}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(b)"
+    verify: false
+
+  - id: not_higher_than_existing_roof
+    kind: threshold
+    description: >
+      The height of the enlarged, improved or altered part must not exceed the height
+      of the highest part of the roof of the existing dwellinghouse.
+    when: {}
+    fails_if:
+      - {field: exceeds_highest_roof, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(c)"
+    verify: false
+
+  - id: eaves_not_higher_than_existing
+    kind: threshold
+    description: >
+      The height of the eaves of the enlarged part must not exceed the height of the
+      eaves of the existing dwellinghouse.
+    when: {}
+    fails_if:
+      - {field: exceeds_existing_eaves, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(d)"
+    verify: false
+
+  - id: no_extension_forward_of_principal_elevation
+    kind: threshold
+    description: >
+      The enlarged part must not extend beyond (i) the wall forming the principal
+      elevation of the original dwellinghouse, or (ii) a wall that fronts a highway
+      and forms a side elevation of the original dwellinghouse.
+    when: {}
+    fails_if:
+      - {field: beyond_principal_elevation, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(e)"
+    verify: false
+
+  - id: eaves_over_3m_near_boundary
+    kind: threshold
+    description: >
+      Where the enlarged part would be within 2 metres of the curtilage boundary,
+      the height of its eaves must not exceed 3 metres.
+    when: {}
+    fails_if:
+      - {field: distance_to_boundary_m, op: lt, value: 2}
+      - {field: eaves_height_m, op: gt, value: 3}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(i)"
+    verify: false
+
+  - id: no_verandah_balcony_raised_platform
+    kind: threshold
+    description: >
+      Development is not permitted if it would consist of or include the construction
+      or provision of a verandah, balcony or raised platform (raised = more than 0.3m).
+    when: {}
+    fails_if:
+      - {field: includes_verandah_balcony_platform, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(k)(i); Part 1 Interpretation para I"
+    verify: false
+
+  - id: no_chimney_flue_soil_vent_pipe
+    kind: threshold
+    description: >
+      Development is not permitted by Class A if it would consist of or include the
+      installation, alteration or replacement of a chimney, flue or soil and vent pipe.
+      Such works require a separate permission or fall under Class G (chimneys/flues).
+    when: {}
+    fails_if:
+      - {field: includes_chimney_flue, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(k)(iii)"
+    verify: false
+
+  - id: no_roof_alteration_under_class_a
+    kind: threshold
+    description: >
+      Development is not permitted by Class A if it would consist of or include an
+      alteration to any part of the roof of the dwellinghouse. Roof alterations are
+      covered by Class B (additions to the roof) or Class C (other alterations) instead.
+    when: {}
+    fails_if:
+      - {field: includes_roof_alteration, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(k)(iv) (substituted by SI 2020/632)"
+    verify: false
+
+  # =========================================================================
+  # SINGLE-STOREY REAR EXTENSIONS
+  # =========================================================================
+
+  - id: rear_single_storey_height_4m
+    kind: threshold
+    description: >
+      A single-storey rear extension must not exceed 4 metres in height.
+    when: {extension_position: rear, storeys: 1}
+    fails_if:
+      - {field: height_m, op: gt, value: 4}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(f)(ii)"
+    verify: false
+
+  - id: rear_depth_detached_basic
+    kind: threshold
+    description: >
+      A single-storey rear extension on a detached dwellinghouse must not extend more
+      than 4 metres beyond the rear wall of the original dwellinghouse. Beyond 4m (up
+      to 8m) the larger home extension prior approval route under A.4 is available,
+      provided the property is not on article 2(3) land or an SSSI.
+    when: {extension_position: rear, storeys: 1, dwelling_type: detached}
+    fails_if:
+      - {field: rear_depth_m, op: gt, value: 4}
+    outcome: prior_approval_possible
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(f)(i) and A.1(g)(i)"
+    verify: false
+
+  - id: rear_depth_other_basic
+    kind: threshold
+    description: >
+      A single-storey rear extension on a semi-detached or terraced dwellinghouse must
+      not extend more than 3 metres beyond the rear wall of the original dwellinghouse.
+      Beyond 3m (up to 6m) the larger home extension prior approval route under A.4 is
+      available, provided the property is not on article 2(3) land or an SSSI.
+    when: {extension_position: rear, storeys: 1, dwelling_type: [semi, terraced]}
+    fails_if:
+      - {field: rear_depth_m, op: gt, value: 3}
+    outcome: prior_approval_possible
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(f)(i) and A.1(g)(i)"
+    verify: false
+
+  - id: rear_depth_detached_cap
+    kind: threshold
+    description: >
+      Even under the larger home extension prior approval route, a single-storey rear
+      extension on a detached dwellinghouse must not extend more than 8 metres beyond
+      the rear wall. Beyond 8m full planning permission is required.
+    when: {extension_position: rear, storeys: 1, dwelling_type: detached}
+    fails_if:
+      - {field: rear_depth_m, op: gt, value: 8}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(g)(i)"
+    verify: false
+
+  - id: rear_depth_other_cap
+    kind: threshold
+    description: >
+      Even under the larger home extension prior approval route, a single-storey rear
+      extension on a semi-detached or terraced dwellinghouse must not extend more than
+      6 metres beyond the rear wall. Beyond 6m full planning permission is required.
+    when: {extension_position: rear, storeys: 1, dwelling_type: [semi, terraced]}
+    fails_if:
+      - {field: rear_depth_m, op: gt, value: 6}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(g)(i)"
+    verify: false
+
+  - id: larger_extension_not_on_article_2_3_or_sssi
+    kind: threshold
+    description: >
+      The larger home extension route (A.1(g)) is not available for dwellinghouses on
+      article 2(3) land (conservation areas, National Parks, AONBs, World Heritage Sites)
+      or on a Site of Special Scientific Interest. On such land the basic limits in A.1(f)
+      apply: 4m detached, 3m other.
+    when: {extension_position: rear, storeys: 1}
+    fails_if:
+      - {field: article_2_3_land, op: eq, value: true}
+      - {field: rear_depth_m, op: gt, value: 3}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(g) (applies only to houses 'not on article 2(3) land nor on a site of special scientific interest')"
+    verify: false
+    notes: >
+      Note: for a detached house on article 2(3) land the basic limit is actually 4m not 3m.
+      This rule conservatively uses 3m to catch all cases. A future improvement would
+      split by dwelling_type here too.
+
+  # =========================================================================
+  # MULTI-STOREY REAR EXTENSIONS
+  # =========================================================================
+
+  - id: multi_storey_rear_depth_3m
+    kind: threshold
+    description: >
+      A multi-storey rear extension must not extend more than 3 metres beyond the
+      rear wall of the original dwellinghouse.
+    when: {extension_position: rear}
+    fails_if:
+      - {field: storeys, op: gt, value: 1}
+      - {field: rear_depth_m, op: gt, value: 3}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(h)(i)"
+    verify: false
+
+  - id: multi_storey_rear_7m_from_boundary
+    kind: threshold
+    description: >
+      A multi-storey rear extension must not be within 7 metres of any boundary of the
+      curtilage which is opposite the rear wall of the dwellinghouse.
+    when: {extension_position: rear}
+    fails_if:
+      - {field: storeys, op: gt, value: 1}
+      - {field: distance_to_rear_boundary_m, op: lt, value: 7}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(h)(ii) (substituted by SI 2016/332)"
+    verify: false
+
+  # =========================================================================
+  # SIDE EXTENSIONS
+  # =========================================================================
+
+  - id: side_extension_single_storey_only
+    kind: threshold
+    description: >
+      An extension beyond a side wall of the original dwellinghouse must not have
+      more than a single storey.
+    when: {extension_position: side}
+    fails_if:
+      - {field: storeys, op: gt, value: 1}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(j)(ii)"
+    verify: false
+
+  - id: side_extension_height_4m
+    kind: threshold
+    description: >
+      An extension beyond a side wall of the original dwellinghouse must not exceed
+      4 metres in height.
+    when: {extension_position: side}
+    fails_if:
+      - {field: height_m, op: gt, value: 4}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(j)(i)"
+    verify: false
+
+  - id: side_extension_max_half_width
+    kind: threshold
+    description: >
+      An extension beyond a side wall must not have a width greater than half the
+      width of the original dwellinghouse.
+    when: {extension_position: side}
+    fails_if:
+      - {field: side_width_ratio, op: gt, value: 0.5}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(j)(iii)"
+    verify: false
+
+  # =========================================================================
+  # ARTICLE 2(3) LAND — additional restrictions (A.2)
+  # =========================================================================
+
+  - id: article_2_3_no_side_extension
+    kind: threshold
+    description: >
+      On article 2(3) land (conservation areas, National Parks, AONBs, World Heritage
+      Sites), any extension beyond a wall forming a side elevation of the original
+      dwellinghouse requires full planning permission.
+    when: {extension_position: side}
+    fails_if:
+      - {field: article_2_3_land, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.2(b)"
+    verify: false
+
+  - id: article_2_3_no_multi_storey_rear
+    kind: threshold
+    description: >
+      On article 2(3) land, an enlarged part that has more than a single storey and
+      extends beyond the rear wall of the original dwellinghouse requires full planning
+      permission.
+    when: {extension_position: rear}
+    fails_if:
+      - {field: article_2_3_land, op: eq, value: true}
+      - {field: storeys, op: gt, value: 1}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.2(c)"
+    verify: false
+
+  - id: article_2_3_cumulative_enlargement
+    kind: interpretive
+    description: >
+      On article 2(3) land, any total enlargement (the new enlarged part together with
+      any existing enlargement of the original dwellinghouse to which it will be joined)
+      must not exceed the limits in A.2(b) (no side extension) and A.2(c) (no multi-storey
+      rear extension). Requires knowledge of previous extensions; cannot be auto-checked
+      without planning history.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.2(d) (inserted by SI 2017/391)"
+    verify: false
+
+  - id: article_2_3_no_cladding
+    kind: threshold
+    description: >
+      On article 2(3) land, development that consists of or includes the cladding of
+      any part of the exterior with stone, artificial stone, pebble dash, render,
+      timber, plastic or tiles is not permitted by Class A.
+    when: {}
+    fails_if:
+      - {field: article_2_3_land, op: eq, value: true}
+      - {field: cladding, op: eq, value: true}
+    outcome: needs_permission
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.2(a)"
+    verify: false
+
+  # =========================================================================
+  # CONDITIONS (A.3) — these are interpretive: cannot be auto-decided
+  # =========================================================================
+
+  - id: materials_similar_in_appearance
+    kind: interpretive
+    description: >
+      Materials used in any exterior work (other than a conservatory) must be of a
+      similar appearance to those used in the construction of the exterior of the
+      existing dwellinghouse. This cannot be checked without knowing the materials.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.3(a)"
+    verify: false
+
+  - id: upper_floor_side_windows
+    kind: interpretive
+    description: >
+      Any upper-floor window in a wall or roof slope forming a side elevation must be
+      (i) obscure-glazed and (ii) non-opening unless the openable parts are more than
+      1.7 metres above the floor of the room. Cannot be auto-checked.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.3(b)"
+    verify: false
+
+  - id: roof_pitch_match_multi_storey
+    kind: interpretive
+    description: >
+      Where the enlarged part has more than a single storey, or forms an upper storey
+      on an existing enlargement, the roof pitch must, so far as practicable, match the
+      roof pitch of the original dwellinghouse. Cannot be auto-checked.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.3(c) (substituted by SI 2017/391)"
+    verify: false
+
+  # =========================================================================
+  # CUMULATIVE / HISTORY RULES — interpretive
+  # =========================================================================
+
+  - id: cumulative_enlargement_ja
+    kind: interpretive
+    description: >
+      A.1(ja): any total enlargement — the new enlarged part together with any existing
+      enlargement of the original dwellinghouse to which it will be joined — must not
+      exceed the limits set out in A.1(e) to (j). Requires knowledge of previous
+      extensions; cannot be auto-checked without planning history.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A, A.1(ja) (inserted by SI 2017/391)"
+    verify: false
+
+  - id: original_dwellinghouse_definition
+    kind: interpretive
+    description: >
+      All limits are measured from the "original dwellinghouse" — the building as it
+      existed on 1 July 1948, or as built if constructed after that date. Any previous
+      extensions count against the cumulative allowance. This requires checking planning
+      history and cannot be auto-decided.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "GPDO 2015 Sch 2 Pt 1 Class A interpretation; A.1(ja)"
+    verify: false
+
+  - id: planning_conditions_removing_rights
+    kind: interpretive
+    description: >
+      A condition attached to an earlier planning permission can remove permitted
+      development rights for a specific property. Must check planning history.
+    when: {}
+    fails_if: []
+    outcome: needs_review
+    citation: "Town and Country Planning Act 1990 s.75; Planning Portal guidance"
+    verify: false
