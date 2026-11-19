@@ -3,11 +3,17 @@ name = "pdcheck"
 version = "0.1.0"
 description = "Householder permitted development pre-check with an evaluation harness"
 requires-python = ">=3.10"
-dependencies = ["pyyaml>=6"]
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "lxml>=6.1.3",
+    "pdfplumber>=0.11.10",
+    "pyyaml>=6",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
 geo = ["geopandas", "shapely"]
+scrape = ["beautifulsoup4>=4.12", "lxml>=5", "pdfplumber>=0.11"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

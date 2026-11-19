@@ -1,29 +1,38 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.venv/
-venv/
-.pytest_cache/
+*.py[cod]
 *.egg-info/
 dist/
 build/
 
-# Environment
-.env
-.env.*
+# Virtual environment
+.venv/
 
-# Data — raw downloads and processed binaries stay local
+# uv
+.python-version
+
+# Test cache
+.pytest_cache/
+
+# Raw scraped HTML (throwaway, re-downloadable)
+scripts/results_*.html
+scripts/results_*_files/
+
+# Data directories (large / re-downloadable)
 data/raw/
-data/processed/*.parquet
-data/processed/*.gpkg
+data/processed/
 
-# Eval results
-eval/results/*.csv
-eval/results/*.json
+# Eval run outputs (generated, not source)
+eval/results/
 
-# IDE
+# Personal scratch notes
+notes.md
+
+# Env / secrets
+.env
+*.env
+
+# Editor
 .vscode/
 .idea/
 
