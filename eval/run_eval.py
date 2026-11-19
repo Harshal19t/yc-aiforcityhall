@@ -1,6 +1,7 @@
 """Run the rule engine over eval/cases.csv and print a confusion matrix.
 
-real_outcome should be one of: lawful | not_lawful (certificate granted / refused).
+real_outcome should be one of: lawful | not_lawful | withdrawn
+  withdrawn = applicant pulled the application; excluded from eval (no decision made).
 Map the engine's status to a binary prediction:
   likely_permitted, needs_review (no hard failure) -> lawful
   needs_permission, prior_approval_possible        -> not_lawful
@@ -49,10 +50,18 @@ def main() -> None:
     if not rows:
         print("No cases yet. Add rows to eval/cases.csv.")
         return
-    matrix = Counter((r["real_outcome"], predict(r)) for r in rows)
+    # Exclude withdrawn and unlabelled rows — no decision was made
+    scored = [r for r in rows if r["real_outcome"] in ("lawful", "not_lawful")]
+    skipped = len(rows) - len(scored)
+    if skipped:
+        print(f"Skipping {skipped} row(s) with outcome: withdrawn or blank")
+    if not scored:
+        print("No scoreable cases yet.")
+        return
+    matrix = Counter((r["real_outcome"], predict(r)) for r in scored)
     correct = sum(n for (real, pred), n in matrix.items() if real == pred)
-    print(f"cases: {len(rows)}  accuracy: {correct / len(rows):.1%}")
-    for (real, pred), n in sorted(matrix.items()):
+    print(f"cases: {len(scored)}  accuracy: {correct / len(scored):.1%}")
+    for (real, pred), n in sorted(matrix.items()):  # type: ignore[misc]
         print(f"  real={real:<10} predicted={pred:<10} n={n}")
 
 
