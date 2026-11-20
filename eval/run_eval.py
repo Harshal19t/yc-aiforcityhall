@@ -31,14 +31,17 @@ def _bool(v: str):
 
 def predict(row: dict) -> str:
     p = Proposal(
-        dwelling_type=row["dwelling_type"] or None,
-        extension_position=row["extension_position"] or None,
-        storeys=int(row["storeys"]) if row["storeys"] else None,
-        rear_depth_m=_num(row["rear_depth_m"]),
-        height_m=_num(row["height_m"]),
-        article_2_3_land=_bool(row["article_2_3_land"]),
-        article_4=_bool(row["article_4"]),
-        listed=_bool(row["listed"]),
+        dwelling_type=row.get("dwelling_type") or None,
+        extension_position=row.get("extension_position") or None,
+        storeys=int(row["storeys"]) if row.get("storeys") else None,
+        rear_depth_m=_num(row.get("rear_depth_m", "")),
+        height_m=_num(row.get("height_m", "")),
+        article_2_3_land=_bool(row.get("article_2_3_land", "")),
+        article_4=_bool(row.get("article_4", "")),
+        listed=_bool(row.get("listed", "")),
+        # extended fields (added in labelling pass)
+        cladding=_bool(row.get("cladding", "")),
+        includes_roof_alteration=_bool(row.get("includes_roof_alteration", "")),
     )
     status = evaluate(p).status
     return "not_lawful" if status in ("needs_permission", "prior_approval_possible") else "lawful"
@@ -55,14 +58,42 @@ def main() -> None:
     skipped = len(rows) - len(scored)
     if skipped:
         print(f"Skipping {skipped} row(s) with outcome: withdrawn or blank")
+
     if not scored:
         print("No scoreable cases yet.")
         return
-    matrix = Counter((r["real_outcome"], predict(r)) for r in scored)
+
+    predictions = [(r["real_outcome"], predict(r)) for r in scored]
+    matrix = Counter(predictions)
     correct = sum(n for (real, pred), n in matrix.items() if real == pred)
+
+    tp = matrix.get(("not_lawful", "not_lawful"), 0)
+    fp = matrix.get(("lawful", "not_lawful"), 0)
+    fn = matrix.get(("not_lawful", "lawful"), 0)
+    tn = matrix.get(("lawful", "lawful"), 0)
+
+    precision = tp / (tp + fp) if (tp + fp) else 0
+    recall    = tp / (tp + fn) if (tp + fn) else 0
+    f1        = 2 * precision * recall / (precision + recall) if (precision + recall) else 0
+
     print(f"cases: {len(scored)}  accuracy: {correct / len(scored):.1%}")
+    print(f"not_lawful — precision: {precision:.1%}  recall: {recall:.1%}  F1: {f1:.2f}")
+    print()
+    print(f"  TP (correctly flagged)  : {tp}")
+    print(f"  FP (false alarms)       : {fp}")
+    print(f"  FN (missed refusals)    : {fn}")
+    print(f"  TN (correctly cleared)  : {tn}")
+    print()
     for (real, pred), n in sorted(matrix.items()):  # type: ignore[misc]
-        print(f"  real={real:<10} predicted={pred:<10} n={n}")
+        mark = "✓" if real == pred else "✗"
+        print(f"  {mark} real={real:<10} predicted={pred:<10} n={n}")
+
+    # List any misses
+    misses = [r for r in scored if r["real_outcome"] != predict(r)]
+    if misses:
+        print(f"\nMissed cases ({len(misses)}):")
+        for r in misses:
+            print(f"  {r['case_id']}  real={r['real_outcome']}  notes={r.get('notes','')[:70]}")
 
 
 if __name__ == "__main__":
