@@ -3,7 +3,7 @@ name = "pdcheck"
 version = "0.1.0"
 description = "Householder permitted development pre-check with an evaluation harness"
 requires-python = ">=3.10"
-dependencies = ["pyyaml>=6", "fastapi>=0.111", "uvicorn[standard]>=0.29", "shapely>=2"]
+dependencies = ["pyyaml>=6", "fastapi>=0.111", "uvicorn[standard]>=0.29", "shapely>=2", "pydantic>=2"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

@@ -22,7 +22,7 @@ from typing import Any
 
 from shapely.geometry import Point, shape
 
-RAW_DIR = Path(__file__).resolve().parents[4] / "data" / "raw"
+RAW_DIR = Path(__file__).resolve().parents[3] / "data" / "raw"
 
 # Maps each constraint flag to the GeoJSON dataset files that trigger it.
 # article_2_3_land is true if the point falls in ANY of its datasets.

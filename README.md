@@ -6,20 +6,19 @@ A permitted development (PD) pre-check tool for householder extensions in Englan
 
 ---
 
-## Results
+## Results (interim: AI layer in progress)
 
-Evaluated against **48 decided Lawful Development Certificate (LDC)** applications from Sheffield City Council — the ground truth for whether a proposal is permitted development. Cases were scraped from Sheffield's IDOX portal and labelled before any engine tuning.
+> **Correction.** An earlier version of this README reported 97.9% accuracy. That figure came from labels that were filled in only for refused cases, after their outcome was known, which leaks the answer into the input. Those labels have been removed. The numbers below are from the corrected eval.
 
-| Metric | Value |
-|---|---|
-| Cases | 48 (38 lawful, 10 not lawful) |
-| Accuracy | **97.9%** |
-| Precision (refusals) | **100%** — zero false alarms |
-| Recall (refusals) | **90%** — 9 of 10 refusals caught |
-| F1 score | **0.95** |
-| Missed case | 1 — mobile home siting (out of Class A scope; documented) |
+Ground truth: 48 decided Lawful Development Certificate (LD2) applications from Sheffield City Council. 5 are not householder applications (schools, a warehouse, a commercial building) and are excluded from householder scoring, leaving **43 cases: 33 lawful, 10 refused**.
 
-Baseline for comparison: a naïve "always predict lawful" model scores 79.2% on this dataset, with 0% recall on refusals.
+| System | Input | Result |
+|---|---|---|
+| Always predict "lawful" | none | 76.7% accuracy, 0% recall on refusals |
+| Rule engine alone | blank structured fields (scraped cases carry no dimensions) | 76.7%, identical to the baseline |
+| Agent pipeline: router + extractor (local LLM) + rule engine | raw description text | being evaluated, see `eval/eval_agents.py` |
+
+The agent layer is scored on facts labelled from the description text only (`eval/gold_facts.csv`, rubric in `docs/labelling_rubric.md`), separately from lawful/refused outcomes.
 
 ---
 
@@ -173,7 +172,7 @@ This is a conservative mapping: `prior_approval_possible` means the basic PD thr
 
 ### Labelling
 
-For each not-lawful case, the minimum fields needed to trigger the relevant rule were identified from the proposal text and labelled manually. The labelling logic is recorded in the `notes` column of `cases.csv`. Assumed fields (e.g. `article_4=true` for estates with known Article 4 directions) are explicitly flagged.
+Facts are labelled from the proposal description text only, using one written rubric for every case (`docs/labelling_rubric.md`). The gold facts file has no outcome column. An earlier labelling pass that set engine fields only on refused cases was removed because it leaked the outcome into the inputs.
 
 ---
 
@@ -184,7 +183,6 @@ For each not-lawful case, the minimum fields needed to trigger the relevant rule
 | **One council** | Only Sheffield cases were used for evaluation. Results on other councils (different Article 4 directions, conservation area boundaries, enforcement culture) are unknown. |
 | **No dimension data** | Most cases in the eval set had no numeric dimensions in the proposal text. Rules that require dimensions (depth, height, width ratio) could not be exercised from the case description alone and were not evaluated. |
 | **Mobile home siting** | Case 26/01733 (mobile home for ancillary accommodation) is refused but the engine returns `likely_permitted` — Class A applies to enlargements of a dwellinghouse, not to siting a separate structure. This is a known gap, not a tuning error. |
-| **Article 4 inference** | Two cladding cases were labelled `article_4=true` based on the known prevalence of Article 4 directions on inter-war Sheffield estates. This is an inference, not verified from the individual decision letters. |
 | **Class A only** | The engine covers GPDO 2015 Schedule 2 Part 1 Class A (extensions, improvements, alterations). It does not cover Class B (roof additions), Class C (other roof alterations), outbuildings (Class E), or gates and fences (Class A Part 2). Proposals that mix Class A and Class B works (e.g. rear extension plus dormer) are only partially assessed. |
 | **No cumulative history** | Rules A.1(ja) and A.2(d) require knowledge of previous extensions to the original dwellinghouse. The engine flags these as `needs_review` rather than attempting to assess them. |
 

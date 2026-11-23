@@ -1,4 +1,9 @@
-"""Run the rule engine over eval/cases.csv and print a confusion matrix.
+"""Run the rule engine over eval/cases.csv (form fields only) and print a confusion matrix.
+
+Only householder cases are scored (non-householder sites are listed in eval/gold_facts.csv).
+This script feeds the engine whatever structured fields are in cases.csv. Those fields are
+blank for scraped cases, so this measures the engine with no extraction at all. The agent
+pipeline (eval/eval_agents.py) is the main eval.
 
 real_outcome should be one of: lawful | not_lawful | withdrawn
   withdrawn = applicant pulled the application; excluded from eval (no decision made).
@@ -39,9 +44,6 @@ def predict(row: dict) -> str:
         article_2_3_land=_bool(row.get("article_2_3_land", "")),
         article_4=_bool(row.get("article_4", "")),
         listed=_bool(row.get("listed", "")),
-        # extended fields (added in labelling pass)
-        cladding=_bool(row.get("cladding", "")),
-        includes_roof_alteration=_bool(row.get("includes_roof_alteration", "")),
     )
     status = evaluate(p).status
     return "not_lawful" if status in ("needs_permission", "prior_approval_possible") else "lawful"
@@ -54,10 +56,15 @@ def main() -> None:
         print("No cases yet. Add rows to eval/cases.csv.")
         return
     # Exclude withdrawn and unlabelled rows — no decision was made
-    scored = [r for r in rows if r["real_outcome"] in ("lawful", "not_lawful")]
+    gold_path = CASES.with_name("gold_facts.csv")
+    non_hh = set()
+    if gold_path.exists():
+        with open(gold_path, newline="", encoding="utf-8") as fh:
+            non_hh = {g["case_id"] for g in csv.DictReader(fh) if g["householder"] == "false"}
+    scored = [r for r in rows if r["real_outcome"] in ("lawful", "not_lawful") and r["case_id"] not in non_hh]
     skipped = len(rows) - len(scored)
     if skipped:
-        print(f"Skipping {skipped} row(s) with outcome: withdrawn or blank")
+        print(f"Skipping {skipped} row(s): withdrawn, blank outcome, or not a householder application")
 
     if not scored:
         print("No scoreable cases yet.")
