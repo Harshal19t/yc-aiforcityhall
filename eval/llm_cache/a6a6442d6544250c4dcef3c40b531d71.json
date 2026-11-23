@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"siting of a mobile home for the provision of ancillary accommodation to the dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "caravan",
+        "evidence": "siting of a mobile home"
+      }
+    ]
+  }
+}

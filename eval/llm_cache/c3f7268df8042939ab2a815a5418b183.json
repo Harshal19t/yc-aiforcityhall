@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Want to extend out the back by 3m, ground floor only. Terraced house.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "extend out the back"
+      }
+    ]
+  }
+}

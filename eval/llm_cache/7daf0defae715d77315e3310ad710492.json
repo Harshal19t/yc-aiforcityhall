@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Single storey rear extension to a terraced house, 3 metres deep and 2.8 metres high\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "Single storey rear extension"
+      }
+    ],
+    "dwelling_type": "terraced",
+    "cladding": false,
+    "rear_depth_m": 3,
+    "height_m": 2.8
+  }
+}

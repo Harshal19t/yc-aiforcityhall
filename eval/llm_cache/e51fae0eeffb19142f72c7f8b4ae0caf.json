@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the conversion of integral garage to create habitable accommodation\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "conversion of integral garage to create habitable accommodation"
+      }
+    ]
+  }
+}

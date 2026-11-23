@@ -1,0 +1,22 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"A single storey rear extension and a single storey side extension to our terraced house\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single storey rear extension"
+      },
+      {
+        "position": "side",
+        "storeys": 1,
+        "evidence": "single storey side extension"
+      }
+    ],
+    "dwelling_type": "terraced",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Beer garden extension at the Red Lion pub\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "Beer garden extension at the Red Lion pub"
+      }
+    ]
+  }
+}

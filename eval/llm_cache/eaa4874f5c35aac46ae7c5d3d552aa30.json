@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"addition of external wall insulation to side elevation, rendering to front and side elevations, and alterations to fenestration of dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "addition of external wall insulation to side elevation"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "rendering to front and side elevations"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "alterations to fenestration"
+      }
+    ]
+  }
+}

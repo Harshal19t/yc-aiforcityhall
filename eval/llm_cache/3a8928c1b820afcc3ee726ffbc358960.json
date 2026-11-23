@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Putting a pitched roof over the flat roof garage at the side\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_other",
+        "evidence": "pitched roof over the flat roof garage"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Wrap-around single storey extension to the side and rear of our end terrace\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "side_rear",
+        "storeys": 1,
+        "evidence": "Wrap-around single storey extension"
+      }
+    ],
+    "dwelling_type": "terraced",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof to form additional living accommodation including hip to gable roof, erection of rear dormer extension and provision of 2no. front roof lights, and erection of single-storey rear extension to dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "alterations to roof to form additional living accommodation including hip to gable roof"
+      },
+      {
+        "work_type": "porch",
+        "evidence": "erection of rear dormer extension"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "provision of 2no. front roof lights"
+      },
+      {
+        "work_type": "extension",
+        "evidence": "erection of single-storey rear extension"
+      }
+    ]
+  }
+}

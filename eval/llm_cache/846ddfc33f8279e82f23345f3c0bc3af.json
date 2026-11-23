@@ -1,0 +1,8 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Removing the wall between the kitchen and dining room\"",
+  "response": {
+    "householder": true,
+    "items": []
+  }
+}

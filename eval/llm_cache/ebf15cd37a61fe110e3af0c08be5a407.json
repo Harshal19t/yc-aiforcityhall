@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"New rooflights and re-roofing in slate\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_other",
+        "evidence": "New rooflights"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "re-roofing in slate"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"addition of external wall insulation to side elevation, rendering to front and side elevations, and alterations to fenestration of dwellinghouse\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": true,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

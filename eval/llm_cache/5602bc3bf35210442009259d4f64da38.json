@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Extension to the back of the property\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "Extension to the back of the property"
+      }
+    ]
+  }
+}

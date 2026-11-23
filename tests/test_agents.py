@@ -243,3 +243,35 @@ def test_householder_with_no_recognised_work_is_not_out_of_scope():
     client = FakeClient(responder({"householder": True, "items": []}))
     res = run_pipeline("some unusual householder works", client)
     assert res.status == "needs_review"
+
+
+# ---------------------------------------------------------------------------
+# Baseline + oracle
+# ---------------------------------------------------------------------------
+
+def test_baseline_extracts_numbers_and_ignores_flat_roof():
+    from pdcheck.agents.baseline import KeywordClient
+    res = run_pipeline("single storey extension at the back, 4 metres deep, flat roof garage at side",
+                       KeywordClient())
+    assert res.facts["rear_depth_m"] == 4.0
+    assert res.facts["dwelling_type"] is None  # "flat roof" is not a flat
+
+
+def test_baseline_has_no_negation_handling():
+    """Documented limitation: the baseline cannot read 'no dormer'."""
+    from pdcheck.agents.baseline import KeywordClient
+    res = run_pipeline("Velux windows in the roof, no dormer", KeywordClient())
+    assert any(i.work_type == "roof_enlargement" for i in res.items)
+
+
+def test_gold_oracle_reproduces_gold_verdicts():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "eval"))
+    import eval_agents
+    rows = eval_agents.load_set("messy")
+    oracle = eval_agents.GoldClient(rows)
+    by_id = {r["case_id"]: run_pipeline(r["text"], oracle).status for r in rows}
+    assert by_id["M32"] == "needs_permission"          # semi, single storey, 7m
+    assert by_id["M31"] == "prior_approval_possible"   # detached, single storey, 6m
+    assert by_id["M19"] == "out_of_scope"

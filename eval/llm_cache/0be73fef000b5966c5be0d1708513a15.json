@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Loft conversion with a dormer window at the back\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "Loft conversion with a dormer window"
+      }
+    ]
+  }
+}

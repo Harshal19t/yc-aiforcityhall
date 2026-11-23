@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the erection of 2m high fencing and gates to perimeter of school field\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "school field"
+      }
+    ]
+  }
+}

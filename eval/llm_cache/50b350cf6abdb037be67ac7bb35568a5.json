@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Rendering the whole house white and fitting external insulation\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "Rendering the whole house white"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "fitting external insulation"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"installation of 2no. classroom structures with connecting shade sail and seating/planters with screening to existing playground - (Application under Regulation 3 - 1992)\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "installation of 2no. classroom structures with connecting shade sail and seating/planters with screening to existing playground"
+      }
+    ]
+  }
+}

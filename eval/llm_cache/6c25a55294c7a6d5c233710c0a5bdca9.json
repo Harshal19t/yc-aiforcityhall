@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of a detached single-storey garden office/outbuilding within the rear garden for use as an office ancillary to the main dwelling\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

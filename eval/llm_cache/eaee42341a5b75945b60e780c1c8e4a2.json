@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of a hip-to-gable and rear dormer roof extension to dwellinghouse, and alterations to an existing chimney\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

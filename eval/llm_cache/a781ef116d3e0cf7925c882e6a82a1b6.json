@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Our flat needs a rear extension\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "rear extension"
+      }
+    ]
+  }
+}

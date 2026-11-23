@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Building a two-storey extension to the rear, 2.5m deep, on our detached house\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "two-storey extension to the rear"
+      }
+    ]
+  }
+}

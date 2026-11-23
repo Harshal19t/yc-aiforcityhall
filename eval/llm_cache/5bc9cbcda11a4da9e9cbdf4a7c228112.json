@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Extend the kitchen out into the garden, single storey, 6m deep, detached house\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "Extend the kitchen out into the garden"
+      }
+    ]
+  }
+}

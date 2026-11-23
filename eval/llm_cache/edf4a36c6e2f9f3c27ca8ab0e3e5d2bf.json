@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Take down the chimney stack and fit a flue for a wood burner\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "chimney_flue",
+        "evidence": "Take down the chimney stack"
+      },
+      {
+        "work_type": "chimney_flue",
+        "evidence": "fit a flue for a wood burner"
+      }
+    ]
+  }
+}

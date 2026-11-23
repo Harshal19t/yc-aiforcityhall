@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Not building an extension, just putting up a shed in the back garden\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "outbuilding",
+        "evidence": "putting up a shed"
+      }
+    ]
+  }
+}

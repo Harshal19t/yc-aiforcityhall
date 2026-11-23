@@ -43,3 +43,11 @@ Known limitation: the labeller had seen the outcomes before writing this rubric.
 3. "Rear and side extensions": two items, `rear` and `side`.
 4. A storey count is only recorded if the text says it ("single-storey", "two-storey"). Otherwise `?`.
 5. Never infer dimensions, dwelling type or constraints. The text does not state them.
+
+## Messy-text set (`eval/messy_cases.csv`)
+
+40 synthetic homeowner-style descriptions written by Claude to test language understanding beyond formulaic council wording (negation, synonyms such as "back" for rear, units, internal-only works, non-householder uses). Labelled with this rubric before any model was run on it, and the prompts and baseline rules were frozen before the first run.
+
+Extra columns: `dwelling_type` (only if the text names it), `rear_depth_m` and `height_m` (only if written in metres in the text; feet are left blank because the extractor is not asked to convert), and `author`.
+
+Caveats: the cases are synthetic and were written by the same author as the prompts and baseline rules, so they are not independent. Add your own phrasings as new rows with `author` set to your name; they are scored identically.

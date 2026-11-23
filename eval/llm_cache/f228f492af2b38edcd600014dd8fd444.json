@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Our flat needs a rear extension\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": null,
+        "evidence": "rear extension"
+      }
+    ],
+    "dwelling_type": "flat",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

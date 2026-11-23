@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof of dwellinghouse including erection of rear dormer extension, rooflights to front, removal of chimney and erection of flue to rear\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "erection of rear dormer extension"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "rooflights to front"
+      },
+      {
+        "work_type": "chimney_flue",
+        "evidence": "removal of chimney and erection of flue to rear"
+      }
+    ]
+  }
+}

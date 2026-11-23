@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"installation of two rooflights to front of dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_other",
+        "evidence": "installation of two rooflights"
+      }
+    ]
+  }
+}

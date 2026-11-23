@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"re-roofing of dwellinghouse, alterations and enlargement of rear dormer and upgrade of rooflights to rear off-shot\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_other",
+        "evidence": "re-roofing"
+      },
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "alterations and enlargement of rear dormer"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "upgrade of rooflights"
+      }
+    ]
+  }
+}

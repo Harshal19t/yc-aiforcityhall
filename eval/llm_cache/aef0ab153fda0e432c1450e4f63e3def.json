@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Wrap-around single storey extension to the side and rear of our end terrace\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "Wrap-around single storey extension"
+      }
+    ]
+  }
+}

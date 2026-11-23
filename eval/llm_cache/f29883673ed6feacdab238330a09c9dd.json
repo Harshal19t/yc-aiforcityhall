@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof to form additional living accommodation including hip to gable roof and erection of rear dormer extension\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "hip to gable roof"
+      },
+      {
+        "work_type": "extension",
+        "evidence": "rear dormer extension"
+      }
+    ]
+  }
+}

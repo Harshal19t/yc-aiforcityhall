@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of a shed\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "outbuilding",
+        "evidence": "erection of a shed"
+      }
+    ]
+  }
+}

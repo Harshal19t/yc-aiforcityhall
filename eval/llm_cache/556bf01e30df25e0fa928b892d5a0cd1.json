@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the installation of a mezzanine floor (use class B8) within an existing warehouse (use class B8)\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "installation of a mezzanine floor (use class B8) within an existing warehouse (use class B8)"
+      }
+    ]
+  }
+}

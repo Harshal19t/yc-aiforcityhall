@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of a single-storey rear extension and loft conversion to create additional living accommodation including rear dormer window to dwellinghouse\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single-storey rear extension"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

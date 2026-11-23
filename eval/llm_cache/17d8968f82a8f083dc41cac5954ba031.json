@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Two storey extension to the side of our detached property\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "side",
+        "storeys": 2,
+        "evidence": "Two storey extension"
+      }
+    ],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Two-storey extension at the rear, 4m deep\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 2,
+        "evidence": "Two-storey extension at the rear"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": 4,
+    "height_m": null
+  }
+}

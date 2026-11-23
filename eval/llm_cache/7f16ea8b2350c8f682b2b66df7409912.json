@@ -1,0 +1,25 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof of dwellinghouse including hip to gable extension, erection of dormer extension to rear, rooflights and solar panels to front\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "hip to gable extension"
+      },
+      {
+        "work_type": "porch",
+        "evidence": "dormer extension to rear"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "rooflights"
+      },
+      {
+        "work_type": "solar",
+        "evidence": "solar panels"
+      }
+    ]
+  }
+}

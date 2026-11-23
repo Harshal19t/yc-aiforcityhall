@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof to form additional habitable space including erection of rear dormers and erection of single-storey side extension to dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "alterations to roof to form additional habitable space including erection of rear dormers"
+      },
+      {
+        "work_type": "extension",
+        "evidence": "erection of single-storey side extension"
+      }
+    ]
+  }
+}

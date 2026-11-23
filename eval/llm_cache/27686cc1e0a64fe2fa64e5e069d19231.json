@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Garden office in the rear garden of our semi-detached\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "outbuilding",
+        "evidence": "Garden office"
+      }
+    ]
+  }
+}

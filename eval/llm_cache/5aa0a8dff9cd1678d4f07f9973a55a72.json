@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the erection of single-storey rear extension and alterations to garage to form habitable accommodation\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single-storey rear extension"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

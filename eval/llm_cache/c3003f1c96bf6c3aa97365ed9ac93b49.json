@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"addition of external wall insulation and brick effect render to front/side and rear of dwellinghouse\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": true,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

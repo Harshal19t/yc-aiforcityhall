@@ -1,0 +1,12 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the construction of a detached outbuilding to the rear of the dwellinghouse\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null,
+    "cladding_evidence": null
+  }
+}

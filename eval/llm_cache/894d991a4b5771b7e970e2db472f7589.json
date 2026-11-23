@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Small shed and a summerhouse at the end of the garden\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "outbuilding",
+        "evidence": "Small shed"
+      },
+      {
+        "work_type": "outbuilding",
+        "evidence": "summerhouse"
+      }
+    ]
+  }
+}

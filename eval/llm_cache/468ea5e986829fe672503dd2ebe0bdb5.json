@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the siting of an ancillary mobile home\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "caravan",
+        "evidence": "siting of an ancillary mobile home"
+      }
+    ]
+  }
+}

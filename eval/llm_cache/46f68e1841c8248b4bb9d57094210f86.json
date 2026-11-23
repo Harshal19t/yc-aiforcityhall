@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Knock down the old garage and build a single storey side extension in its place\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "demolition",
+        "evidence": "Knock down the old garage"
+      },
+      {
+        "work_type": "extension",
+        "evidence": "build a single storey side extension"
+      }
+    ]
+  }
+}

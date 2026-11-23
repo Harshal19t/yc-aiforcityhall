@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Demolish the outhouse at the back\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "demolition",
+        "evidence": "Demolish the outhouse"
+      }
+    ]
+  }
+}

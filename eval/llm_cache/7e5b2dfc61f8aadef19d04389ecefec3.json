@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Convert the ground floor of the shop into a one bedroom flat\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "Convert the ground floor of the shop into a one bedroom flat"
+      }
+    ]
+  }
+}

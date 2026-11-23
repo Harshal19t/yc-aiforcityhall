@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"replacement roof to dwellinghouse, demolition of side store/wc and erection of single-storey side extension\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "side",
+        "storeys": 1,
+        "evidence": "single-storey side extension"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

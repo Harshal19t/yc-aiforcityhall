@@ -1,0 +1,12 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"New bay window and replacing the front door\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null,
+    "cladding_evidence": null
+  }
+}

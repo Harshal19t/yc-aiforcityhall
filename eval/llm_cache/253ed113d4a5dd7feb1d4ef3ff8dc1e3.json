@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"extension and remodelling of the existing main school building to provide a new hall, ICT suites/classroom and three science laboratories\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "extension and remodelling of the existing main school building"
+      }
+    ]
+  }
+}

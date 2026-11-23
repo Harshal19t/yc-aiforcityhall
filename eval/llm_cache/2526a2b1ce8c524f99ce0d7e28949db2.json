@@ -1,0 +1,12 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Cladding the back of the house in timber boards\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": true,
+    "rear_depth_m": null,
+    "height_m": null,
+    "cladding_evidence": "Cladding the back of the house in timber boards"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"alterations to roof of dwellinghouse including erection of rear dormer extension, rooflights to front, removal of chimney and erection of flue to rear\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": null,
+        "evidence": "rear dormer extension"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Swapping all the windows for uPVC double glazing\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "Swapping all the windows for uPVC double glazing"
+      }
+    ]
+  }
+}

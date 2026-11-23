@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"New bay window and replacing the front door\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "New bay window"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "replacing the front door"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Want to extend out the back by 3m, ground floor only. Terraced house.\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "extend out the back... ground floor only"
+      }
+    ],
+    "dwelling_type": "terraced",
+    "cladding": false,
+    "rear_depth_m": 3.0,
+    "height_m": null
+  }
+}

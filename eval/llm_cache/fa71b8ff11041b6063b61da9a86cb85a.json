@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the installation of cavity barrier behind the existing brickwork\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "installation of cavity barrier behind the existing brickwork"
+      }
+    ]
+  }
+}

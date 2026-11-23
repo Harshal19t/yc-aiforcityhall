@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of dormer window to rear and repositioning of window to rear of dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "erection of dormer window"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "repositioning of window"
+      }
+    ]
+  }
+}

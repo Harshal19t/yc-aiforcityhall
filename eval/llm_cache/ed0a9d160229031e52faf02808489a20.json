@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Two-storey rear extension 3.5m deep on a detached house, plus new rooflights\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 2,
+        "evidence": "Two-storey rear extension"
+      }
+    ],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": 3.5,
+    "height_m": null
+  }
+}

@@ -1281,6 +1281,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi", version = "0.162.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "fastapi", version = "0.165.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pydantic" },
     { name = "pyyaml" },
     { name = "shapely", version = "2.1.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "shapely", version = "2.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
@@ -1310,6 +1311,7 @@ requires-dist = [
     { name = "geopandas", marker = "extra == 'geo'" },
     { name = "lxml", marker = "extra == 'scrape'", specifier = ">=5" },
     { name = "pdfplumber", marker = "extra == 'scrape'", specifier = ">=0.11" },
+    { name = "pydantic", specifier = ">=2" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pyyaml", specifier = ">=6" },
     { name = "shapely", specifier = ">=2" },

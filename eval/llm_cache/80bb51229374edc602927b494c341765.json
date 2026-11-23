@@ -1,0 +1,22 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"the erection of single-storey rear and side extensions to dwellinghouse\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single-storey rear"
+      },
+      {
+        "position": "side",
+        "storeys": 1,
+        "evidence": "single-storey side"
+      }
+    ],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

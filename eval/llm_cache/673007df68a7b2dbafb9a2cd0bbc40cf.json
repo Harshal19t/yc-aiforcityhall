@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Hip to gable and rear dormer to make a master bedroom in the loft of our semi-detached\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": "semi",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

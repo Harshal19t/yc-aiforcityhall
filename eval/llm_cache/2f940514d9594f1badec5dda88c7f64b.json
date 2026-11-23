@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Single storey side extension on our detached house, about 2.5m wide\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "Single storey side extension"
+      }
+    ]
+  }
+}

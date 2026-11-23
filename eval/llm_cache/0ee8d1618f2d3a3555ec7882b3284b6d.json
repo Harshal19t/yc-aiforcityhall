@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of single-storey side extension and replacement roof to front porch\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "single-storey side extension"
+      },
+      {
+        "work_type": "porch",
+        "evidence": "replacement roof to front porch"
+      }
+    ]
+  }
+}

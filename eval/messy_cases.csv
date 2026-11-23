@@ -1,0 +1,41 @@
+case_id,author,text,householder,works,extensions,dwelling_type,rear_depth_m,height_m,cladding
+M01,claude_synthetic,"Hi, we'd like to build a single storey extension at the back of our semi-detached house, about 4 metres deep",true,extension,rear:1,semi,4,,false
+M02,claude_synthetic,"Want to extend out the back by 3m, ground floor only. Terraced house.",true,extension,rear:1,terraced,3,,false
+M03,claude_synthetic,Two storey extension to the side of our detached property,true,extension,side:2,detached,,,false
+M04,claude_synthetic,"Building a two-storey extension to the rear, 2.5m deep, on our detached house",true,extension,rear:2,detached,2.5,,false
+M05,claude_synthetic,Loft conversion with a dormer window at the back,true,roof_enlargement,,,,,false
+M06,claude_synthetic,"We want Velux windows in the roof, no dormer",true,roof_other,,,,,false
+M07,claude_synthetic,"Single-storey rear extension, 5m out, on our detached bungalow",true,extension,rear:1,detached,5,,false
+M08,claude_synthetic,Garden room at the bottom of the garden for home working,true,outbuilding,,,,,false
+M09,claude_synthetic,"Not building an extension, just putting up a shed in the back garden",true,outbuilding,,,,,false
+M10,claude_synthetic,Wrap-around single storey extension to the side and rear of our end terrace,true,extension,side_rear:1,terraced,,,false
+M11,claude_synthetic,Rendering the whole house white and fitting external insulation,true,external_alteration,,,,,true
+M12,claude_synthetic,New bay window and replacing the front door,true,external_alteration,,,,,false
+M13,claude_synthetic,"Convert the integral garage into a playroom, new window where the garage door is",true,external_alteration,,,,,false
+M14,claude_synthetic,"Porch on the front of the house, about 2m by 1.5m",true,porch,,,,,false
+M15,claude_synthetic,Solar panels on the south facing roof,true,solar,,,,,false
+M16,claude_synthetic,Take down the chimney stack and fit a flue for a wood burner,true,chimney_flue,,,,,false
+M17,claude_synthetic,Knock down the old garage and build a single storey side extension in its place,true,extension;demolition,side:1,,,,false
+M18,claude_synthetic,Static caravan in the garden for my mother to live in,true,caravan,,,,,false
+M19,claude_synthetic,Convert the ground floor of the shop into a one bedroom flat,false,non_householder,,,,,false
+M20,claude_synthetic,Beer garden extension at the Red Lion pub,false,non_householder,,,,,false
+M21,claude_synthetic,Hip to gable and rear dormer to make a master bedroom in the loft of our semi-detached,true,roof_enlargement,,semi,,,false
+M22,claude_synthetic,"Rear extension 12ft deep, single storey",true,extension,rear:1,,,,false
+M23,claude_synthetic,Extension to the back of the property,true,extension,rear:?,,,,false
+M24,claude_synthetic,"Two-storey rear extension 3.5m deep on a detached house, plus new rooflights",true,extension;roof_other,rear:2,detached,3.5,,false
+M25,claude_synthetic,Dormer to the front of the house,true,roof_enlargement,,,,,false
+M26,claude_synthetic,Our flat needs a rear extension,true,extension,rear:?,flat,,,false
+M27,claude_synthetic,Garden office in the rear garden of our semi-detached,true,outbuilding,,semi,,,false
+M28,claude_synthetic,"Single storey side extension on our detached house, about 2.5m wide",true,extension,side:1,detached,,,false
+M29,claude_synthetic,Removing the wall between the kitchen and dining room,true,,,,,,false
+M30,claude_synthetic,Cladding the back of the house in timber boards,true,external_alteration,,,,,true
+M31,claude_synthetic,"Extend the kitchen out into the garden, single storey, 6m deep, detached house",true,extension,rear:1,detached,6,,false
+M32,claude_synthetic,"Extend the kitchen into the garden 7m deep, single storey, semi-detached",true,extension,rear:1,semi,7,,false
+M33,claude_synthetic,"Single storey rear extension to a terraced house, 3 metres deep and 2.8 metres high",true,extension,rear:1,terraced,3,2.8,false
+M34,claude_synthetic,A single storey rear extension and a single storey side extension to our terraced house,true,extension,rear:1;side:1,terraced,,,false
+M35,claude_synthetic,Swapping all the windows for uPVC double glazing,true,external_alteration,,,,,false
+M36,claude_synthetic,New rooflights and re-roofing in slate,true,roof_other,,,,,false
+M37,claude_synthetic,Putting a pitched roof over the flat roof garage at the side,true,roof_other,,,,,false
+M38,claude_synthetic,Small shed and a summerhouse at the end of the garden,true,outbuilding,,,,,false
+M39,claude_synthetic,Demolish the outhouse at the back,true,demolition,,,,,false
+M40,claude_synthetic,"Two-storey extension at the rear, 4m deep",true,extension,rear:2,,4,,false

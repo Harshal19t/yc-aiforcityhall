@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Hi, we'd like to build a single storey extension at the back of our semi-detached house, about 4 metres deep\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single storey extension at the back"
+      }
+    ],
+    "dwelling_type": "semi",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

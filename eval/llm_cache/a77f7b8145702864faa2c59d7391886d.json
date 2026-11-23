@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of a hip-to-gable and rear dormer roof extension to dwellinghouse, and alterations to an existing chimney\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "hip-to-gable and rear dormer roof extension"
+      },
+      {
+        "work_type": "chimney_flue",
+        "evidence": "alterations to an existing chimney"
+      }
+    ]
+  }
+}

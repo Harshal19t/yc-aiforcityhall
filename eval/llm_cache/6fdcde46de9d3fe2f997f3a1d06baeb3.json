@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Solar panels on the south facing roof\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "solar",
+        "evidence": "Solar panels on the south facing roof"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We want Velux windows in the roof, no dormer\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_other",
+        "evidence": "Velux windows in the roof"
+      }
+    ]
+  }
+}

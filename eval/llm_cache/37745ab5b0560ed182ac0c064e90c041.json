@@ -1,0 +1,12 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Take down the chimney stack and fit a flue for a wood burner\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": null,
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null,
+    "cladding_evidence": null
+  }
+}

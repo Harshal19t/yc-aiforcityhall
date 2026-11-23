@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"erection of single-storey rear extension and formation of pitched roof over garage to side of dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "single-storey rear extension"
+      },
+      {
+        "work_type": "roof_other",
+        "evidence": "formation of pitched roof over garage"
+      }
+    ]
+  }
+}

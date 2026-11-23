@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"demolition of outhouse building and erection of single-storey garden room to rear of dwellinghouse\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "demolition",
+        "evidence": "demolition of outhouse building"
+      },
+      {
+        "work_type": "outbuilding",
+        "evidence": "erection of single-storey garden room"
+      }
+    ]
+  }
+}

@@ -1,7 +1,14 @@
-"""Keyword baseline: a drop-in replacement for the LLM, built from the rubric's
-own trigger words. It exists so the eval can answer "does the LLM beat simple
-keyword matching?". The word lists come from docs/labelling_rubric.md and were
-not tuned on eval cases.
+"""Keyword baseline (v2): a drop-in replacement for the LLM, built from plain keyword and
+regex rules. It exists so the eval can answer "does the LLM beat simple rules?".
+
+Version history (disclosed in the README):
+  v1  keyword lists from docs/labelling_rubric.md, written after reading the Sheffield cases.
+  v2  made BEFORE running anything on eval/messy_cases.csv, so the baseline is not a strawman:
+      number extraction ("4 metres deep"), "back" = rear, "extend" counts as an extension,
+      "insulation", "flat roof" is not a flat, and a few obvious non-householder words
+      (pub, hotel, restaurant).
+Deliberately NOT handled: negation ("no dormer"), feet/inches, wrap-around vs two separate
+extensions. These are the kinds of thing a rule list gets wrong and a language model should not.
 """
 from __future__ import annotations
 
@@ -11,27 +18,34 @@ from typing import Any
 from pdcheck.llm.client import LLMResponse
 
 _NON_HOUSEHOLDER = ["school", "warehouse", "office building", "shop", "academy", "college", "block of flats",
-                    "apartments", "use class"]
+                    "apartments", "use class", "pub", "hotel", "restaurant"]
 
 _WORK_KEYWORDS: list[tuple[str, list[str]]] = [
-    ("extension", ["rear extension", "side extension", "side/rear extension", "storey extension",
-                   "extension to dwelling", "rear and side extension", "rear extensions"]),
-    ("external_alteration", ["fenestration", "window", "external wall insulation", "render", "cladding",
-                             "garage to form", "conversion of integral garage", "conversion of garage"]),
+    ("extension", ["extension", "extend"]),
+    ("external_alteration", ["fenestration", "window", "external wall insulation", "insulation", "render",
+                             "cladding", "garage to form", "conversion of integral garage",
+                             "conversion of garage", "convert the integral garage", "bay window", "front door"]),
     ("roof_enlargement", ["dormer", "hip to gable", "hip-to-gable"]),
-    ("roof_other", ["rooflight", "roof light", "re-roof", "replacement roof", "pitched roof over"]),
+    ("roof_other", ["rooflight", "roof light", "re-roof", "replacement roof", "pitched roof over", "velux"]),
     ("porch", ["porch"]),
-    ("outbuilding", ["outbuilding", "shed", "garden room", "garden office", "summer house"]),
+    ("outbuilding", ["outbuilding", "shed", "garden room", "garden office", "summer house", "summerhouse"]),
     ("caravan", ["mobile home", "caravan"]),
     ("chimney_flue", ["chimney", "flue"]),
     ("solar", ["solar"]),
-    ("demolition", ["demolition"]),
+    ("demolition", ["demolition", "demolish", "knock down", "take down the old"]),
 ]
+
+_NUM = r"(\d+(?:\.\d+)?)"
+_UNIT = r"\s*(?:m|metres|meters|metre)\b"
+
+
+def _word(t: str, w: str) -> bool:
+    return re.search(rf"\b{re.escape(w)}", t) is not None
 
 
 def _router(text: str) -> dict[str, Any]:
     t = text.lower()
-    hit = next((w for w in _NON_HOUSEHOLDER if w in t), None)
+    hit = next((w for w in _NON_HOUSEHOLDER if _word(t, w)), None)
     if hit:
         return {"householder": False, "items": [{"work_type": "non_householder", "evidence": hit}]}
     items = []
@@ -44,20 +58,45 @@ def _router(text: str) -> dict[str, Any]:
 
 def _extractor(text: str) -> dict[str, Any]:
     t = text.lower()
+    storeys = None
+    if re.search(r"single[- ]storey|ground floor only", t):
+        storeys = 1
+    elif re.search(r"two[- ]storey|double[- ]storey", t):
+        storeys = 2
+
     extensions = []
-    storeys = 1 if "single-storey" in t or "single storey" in t else (2 if "two-storey" in t else None)
-    if "side/rear extension" in t:
-        extensions.append({"position": "side_rear", "storeys": storeys, "evidence": "side/rear extension"})
-    else:
-        if re.search(r"rear (and side )?extension", t):
-            extensions.append({"position": "rear", "storeys": storeys, "evidence": "rear"})
-        if re.search(r"(rear and )?side extension|and side extensions", t):
-            extensions.append({"position": "side", "storeys": storeys, "evidence": "side"})
-    dwelling = next((d for k, d in [("semi-detached", "semi"), ("terraced", "terraced"),
-                                    ("detached", "detached"), ("flat", "flat")] if k in t), None)
-    clad_word = next((w for w in ["render", "external wall insulation", "cladding", "pebble dash"] if w in t), None)
+    if re.search(r"extension|extend", t):
+        if "side/rear" in t or "wrap" in t:
+            extensions.append({"position": "side_rear", "storeys": storeys, "evidence": "side/rear"})
+        else:
+            has_rear = re.search(r"\b(rear|back)\b", t) is not None
+            has_side = re.search(r"\bside\b", t) is not None
+            if has_rear:
+                extensions.append({"position": "rear", "storeys": storeys, "evidence": "rear"})
+            if has_side:
+                extensions.append({"position": "side", "storeys": storeys, "evidence": "side"})
+            if not extensions:
+                extensions.append({"position": "unspecified", "storeys": storeys, "evidence": "extension"})
+
+    dwelling = None
+    for pat, d in [(r"semi[- ]?detached", "semi"), (r"terrace", "terraced"),
+                   (r"\bdetached", "detached"), (r"\bflat\b(?! roof)", "flat")]:
+        if re.search(pat, t):
+            dwelling = d
+            break
+
+    depth = height = None
+    m = re.search(rf"{_NUM}{_UNIT}\s*(?:deep|out|long)|(?:out|by)\s*(?:the back\s*)?(?:by\s*)?{_NUM}{_UNIT}", t)
+    if m:
+        depth = float(next(g for g in m.groups() if g))
+    m = re.search(rf"{_NUM}{_UNIT}\s*high", t)
+    if m:
+        height = float(m.group(1))
+
+    clad_word = next((w for w in ["render", "external wall insulation", "insulation", "cladding", "pebble dash"]
+                      if w in t), None)
     return {"extensions": extensions, "dwelling_type": dwelling, "cladding": clad_word is not None,
-            "cladding_evidence": clad_word, "rear_depth_m": None, "height_m": None}
+            "cladding_evidence": clad_word, "rear_depth_m": depth, "height_m": height}
 
 
 class KeywordClient:
