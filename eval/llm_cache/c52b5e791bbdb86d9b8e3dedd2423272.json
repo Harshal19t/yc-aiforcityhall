@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We're looking to add a dormer at the back of the roof to make the loft into a proper bedroom, probably with a little ensuite as well.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "roof_enlargement",
+        "evidence": "add a dormer"
+      }
+    ]
+  }
+}

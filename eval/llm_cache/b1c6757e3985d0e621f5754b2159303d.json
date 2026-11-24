@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Thinking of doing a double-storey rear extension on our detached house, going out 4.2 metres and up to 6.8m high to match the existing eaves.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "double-storey rear extension"
+      }
+    ]
+  }
+}

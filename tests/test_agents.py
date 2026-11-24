@@ -275,3 +275,28 @@ def test_gold_oracle_reproduces_gold_verdicts():
     assert by_id["M32"] == "needs_permission"          # semi, single storey, 7m
     assert by_id["M31"] == "prior_approval_possible"   # detached, single storey, 6m
     assert by_id["M19"] == "out_of_scope"
+
+
+# ---------------------------------------------------------------------------
+# Hybrid number reader
+# ---------------------------------------------------------------------------
+
+def test_read_numbers_cases():
+    from pdcheck.agents.numbers import read_numbers
+    assert read_numbers("about 4 metres deep") == (4.0, None)
+    assert read_numbers("extend out the back by 3m") == (3.0, None)
+    assert read_numbers("3.5m out, 2.8 metres high") == (3.5, 2.8)
+    assert read_numbers("about 2.5m wide") == (None, None)       # 'about' must not match 'out'
+    assert read_numbers("a porch about 2m by 1.5m", has_extension=False) == (None, None)
+    assert read_numbers("12ft deep") == (None, None)             # feet are ignored
+
+
+def test_hybrid_numbers_fill_what_the_llm_missed_and_are_logged():
+    client = FakeClient(responder(
+        {"householder": True, "items": [{"work_type": "extension", "evidence": "rear extension"}]},
+        ext(extensions=[{"position": "rear", "storeys": 1, "evidence": "rear extension"}], rear_depth_m=None),
+    ))
+    out, step = run_extractor(client, "single storey rear extension 4 metres deep", hybrid_numbers=True)
+    assert out.rear_depth_m == 4.0 and "rear_depth_m" in step.notes[0]
+    out2, step2 = run_extractor(client, "single storey rear extension 4 metres deep")  # default: LLM only
+    assert out2.rear_depth_m is None and not step2.notes

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Need a bit more space at the back, looking at going out around 12ft with a single floor extension. It's a terraced house.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "extension",
+        "evidence": "single floor extension"
+      }
+    ]
+  }
+}

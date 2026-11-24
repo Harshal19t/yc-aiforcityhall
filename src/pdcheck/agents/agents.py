@@ -17,6 +17,7 @@ from typing import Any
 
 from pydantic import BaseModel, ValidationError
 
+from pdcheck.agents.numbers import read_numbers
 from pdcheck.agents.prompts import EXTRACTOR_SYSTEM, ROUTER_SYSTEM
 from pdcheck.agents.schemas import ExtractorOutput, RouterOutput, llm_schema
 from pdcheck.llm.client import LLMClient, LLMError, LLMUnavailable
@@ -39,6 +40,7 @@ class AgentStep:
     latency_ms: int = 0
     attempts: int = 0
     evidence_checks: list[EvidenceCheck] = field(default_factory=list)
+    notes: list[str] = field(default_factory=list)
 
     @property
     def hallucinated_evidence(self) -> list[str]:
@@ -120,7 +122,9 @@ def run_router(client: LLMClient, description: str) -> tuple[RouterOutput | None
     return parsed, step  # type: ignore[return-value]
 
 
-def run_extractor(client: LLMClient, description: str) -> tuple[ExtractorOutput | None, AgentStep]:
+def run_extractor(
+    client: LLMClient, description: str, hybrid_numbers: bool = False
+) -> tuple[ExtractorOutput | None, AgentStep]:
     parsed, step = _run("fact_extractor", client, EXTRACTOR_SYSTEM, f'Description: "{description}"', ExtractorOutput)
     if parsed is not None:
         assert isinstance(parsed, ExtractorOutput)
@@ -134,6 +138,13 @@ def run_extractor(client: LLMClient, description: str) -> tuple[ExtractorOutput 
             if value is not None and not _number_in_text(value, description):
                 step.evidence_checks.append(EvidenceCheck(f"{name}={value}", False))
                 setattr(parsed, name, None)
+        if hybrid_numbers:
+            depth, height = read_numbers(description, has_extension=bool(parsed.extensions))
+            for name, found in (("rear_depth_m", depth), ("height_m", height)):
+                current = getattr(parsed, name)
+                if found is not None and found != current:
+                    step.notes.append(f"{name}: text reader found {found}, LLM said {current}; using {found}")
+                    setattr(parsed, name, found)
         step.output = parsed.model_dump()
     return parsed, step  # type: ignore[return-value]
 

@@ -1,0 +1,8 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"knocking the wall down between the kitchen and dining room to make it open plan, not changing anything outside\"",
+  "response": {
+    "householder": true,
+    "items": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We're a detached house and want to build a small single-storey extension down the side, maybe 2.5 metres out. Also putting a shed in the garden and adding two rooflights to the existing roof. We're not changing the roof shape or doing any loft conversion.\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "side",
+        "storeys": 1,
+        "evidence": "small single-storey extension down the side"
+      }
+    ],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

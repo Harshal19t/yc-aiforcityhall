@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Looking to knock down the old brick garage at the end of the drive and put up a 4m by 3m timber garden office instead, around 2.5m tall\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "demolition",
+        "evidence": "knock down the old brick garage"
+      },
+      {
+        "work_type": "outbuilding",
+        "evidence": "timber garden office"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We own a small shop on the high street and want to add a single-storey extension at the rear, roughly 3.5 metres deep, for extra storage space.\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "small shop on the high street"
+      },
+      {
+        "work_type": "extension",
+        "evidence": "single-storey extension at the rear"
+      }
+    ]
+  }
+}

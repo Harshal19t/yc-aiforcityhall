@@ -70,7 +70,7 @@ def _norm_gold(g: dict, has_dims: bool) -> dict:
     }
 
 
-def load_set(name: str) -> list[dict]:
+def load_set(name: str, author: str | None = None) -> list[dict]:
     if name == "council":
         cases = {r["case_id"]: r for r in csv.DictReader(open(EVAL / "cases.csv", encoding="utf-8"))}
         gold = {r["case_id"]: r for r in csv.DictReader(open(EVAL / "gold_facts.csv", encoding="utf-8"))}
@@ -80,6 +80,14 @@ def load_set(name: str) -> list[dict]:
         return [{"case_id": cid, "text": cases[cid]["proposal_text"], "outcome": cases[cid]["real_outcome"],
                  "gold": _norm_gold(gold[cid], has_dims=False)} for cid in cases]
     rows = list(csv.DictReader(open(EVAL / "messy_cases.csv", encoding="utf-8")))
+    if author:
+        if author.lower() == "human":  # every row not written by Claude
+            rows = [r for r in rows if r["author"] != "claude_synthetic"]
+        else:
+            wanted = {a.strip().lower() for a in author.split(",")}
+            rows = [r for r in rows if r["author"].strip().lower() in wanted]
+        if not rows:
+            raise SystemExit(f"No rows matching author '{author}' in eval/messy_cases.csv")
     return [{"case_id": r["case_id"], "text": r["text"], "outcome": None,
              "gold": _norm_gold(r, has_dims=True)} for r in rows]
 
@@ -155,10 +163,14 @@ def main() -> None:
     ap.add_argument("--offline", action="store_true", help="Use cached answers only")
     ap.add_argument("--limit", type=int, default=None, help="Only run the first N cases (smoke test)")
     ap.add_argument("--baseline", action="store_true", help="Use keyword rules instead of an LLM")
+    ap.add_argument("--author", default=None, help="Messy set only: 'human' = all rows not written by Claude, or comma-separated author names")
+    ap.add_argument("--summary-only", action="store_true", help="Hide per-case texts and error lists (keeps held-out cases unseen)")
+    ap.add_argument("--hybrid", action="store_true",
+                    help="Take measurements from the deterministic text reader (LLM still does understanding)")
     ap.add_argument("--oracle", action="store_true", help="Feed the gold facts (sanity check, should score 100%%)")
     args = ap.parse_args()
 
-    rows = load_set(args.set)[: args.limit]
+    rows = load_set(args.set, args.author)[: args.limit]
     oracle = GoldClient(load_set(args.set))
     if args.oracle:
         client = oracle
@@ -166,18 +178,19 @@ def main() -> None:
         client = KeywordClient()
     else:
         client = OllamaClient(model=args.model, cache_dir=CACHE_DIR, offline=args.offline or None)
-    print(f"Set: {args.set}   Model: {client.model}   cases: {len(rows)}\n")
+    print(f"Set: {args.set}{' / ' + args.author if args.author else ''}   Model: {client.model}   cases: {len(rows)}\n")
 
     per_case = []
     t0 = time.perf_counter()
     for i, row in enumerate(rows, 1):
         try:
-            res = run_pipeline(row["text"], client)
+            res = run_pipeline(row["text"], client, hybrid_numbers=args.hybrid)
         except LLMUnavailable as exc:
             raise SystemExit(f"\n{exc}")
         gold_res = run_pipeline(row["text"], oracle)
         fresh = sum(1 for s in res.trace if not s.cached)
-        print(f"[{i:>2}/{len(rows)}] {row['case_id']}  {res.status:<24} "
+        shown = "" if args.summary_only else f"  {res.status:<24}"
+        print(f"[{i:>2}/{len(rows)}] {row['case_id']}{shown} "
               f"{'cached' if fresh == 0 else f'{res.total_ms / 1000:.1f}s'}")
         per_case.append((row, res, gold_res))
     elapsed = time.perf_counter() - t0
@@ -247,7 +260,7 @@ def main() -> None:
     informative_ok = sum(1 for res, g in informative if res.status == g.status)
 
     # ---- report ----------------------------------------------------------------
-    print(f"\n{'=' * 66}\nAGENT EVAL  set={args.set}  model={client.model}  cases={n}  time={elapsed:.0f}s\n{'=' * 66}")
+    print(f"\n{'=' * 66}\nAGENT EVAL  set={args.set}  model={client.model}{'+numbers' if args.hybrid else ''}  cases={n}  time={elapsed:.0f}s\n{'=' * 66}")
     print(f"Householder detection     {_pct(hh_ok, n)}")
     print(f"Work types exact match    {_pct(works_ok, n)}")
     print(f"Extension facts exact     {_pct(ext_ok, ext_n)}")
@@ -285,11 +298,11 @@ def main() -> None:
 
     for title, items in (("Work-type errors", works_errors[:12]), ("Fact errors", fact_errors[:15]),
                          ("Verdict disagreements", verdict_errors[:12])):
-        if items:
+        if items and not args.summary_only:
             print(f"\n{title} (first {len(items)}):")
             for it in items:
                 print("  " + " | ".join(str(x)[:70] for x in it))
-    if ungrounded:
+    if ungrounded and not args.summary_only:
         print("\nUngrounded (first 10): " + "; ".join(repr(e) for e in ungrounded[:10]))
     if failed:
         print("\nFailed steps:")
@@ -297,7 +310,9 @@ def main() -> None:
             print(f"  {cid} {agent}: {err}")
 
     RESULTS_DIR.mkdir(exist_ok=True)
-    out = RESULTS_DIR / f"agents_{args.set}_{client.model.replace(':', '_').replace('/', '_')}.json"
+    tag = "_" + "".join(c if c.isalnum() else "-" for c in args.author) if args.author else ""
+    mname = client.model.replace(':', '_').replace('/', '_') + ("+numbers" if args.hybrid else "")
+    out = RESULTS_DIR / f"agents_{args.set}{tag}_{mname}.json"
     out.write_text(json.dumps({
         "set": args.set, "model": client.model, "cases": n,
         "householder_accuracy": hh_ok / n, "works_exact_match": works_ok / n,

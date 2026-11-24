@@ -39,3 +39,18 @@ M37,claude_synthetic,Putting a pitched roof over the flat roof garage at the sid
 M38,claude_synthetic,Small shed and a summerhouse at the end of the garden,true,outbuilding,,,,,false
 M39,claude_synthetic,Demolish the outhouse at the back,true,demolition,,,,,false
 M40,claude_synthetic,"Two-storey extension at the rear, 4m deep",true,extension,rear:2,,4,,false
+U01,harshal,We own a small corner shop and want to put solar panels on the flat roof and replace the old single-glazed windows upstairs.,false,non_householder,,,,,false
+U02,Danny,"Thinking of doing a double-storey rear extension on our detached house, going out 4.2 metres and up to 6.8m high to match the existing eaves.",true,extension,rear:2,detached,4.2,6.8,false
+U03,Manny,"knocking the wall down between the kitchen and dining room to make it open plan, not changing anything outside",true,,,,,,false
+U04,Saif,"Need a bit more space at the back, looking at going out around 12ft with a single floor extension. It's a terraced house.",true,extension,rear:1,terraced,,,false
+U05,Steven,"We're a detached house and want to build a small single-storey extension down the side, maybe 2.5 metres out. Also putting a shed in the garden and adding two rooflights to the existing roof. We're not changing the roof shape or doing any loft conversion.",true,extension,side:1,detached,2.5,,false
+U06,Cindy,The old detached garage is falling apart so we're planning to knock it down and clear the space for parking instead. Not building anything new there.,true,demolition,,,,,false
+U07,Tina,"Just want a small porch at the front entrance, around 2 metres high and 1.5 metres wide, nothing fancy.",true,porch,,,,2,false
+U08,Ronnie,"We're looking to add a dormer at the back of the roof to make the loft into a proper bedroom, probably with a little ensuite as well.",true,roof_other,,,,,false
+U09,Veronica,We own a small corner shop and want to put solar panels on the flat roof and replace the old single-glazed windows upstairs.,false,non_householder,,,,,false
+U10,Petra,"Looking to knock down the old brick garage at the end of the drive and put up a 4m by 3m timber garden office instead, around 2.5m tall",true,demolition,,,,2.5,false
+U11,Jane,"Just converting the integral garage into a playroom with a new window where the garage door used to be, no extension being built.",true,extension,side:1,semi,,,true
+U12,Max,Getting a wood burner fitted in the lounge so we need a metal flue pipe going up the outside wall and past the gutter.,true,chimney_flue,,,,,false
+U13,Xavier,We're thinking of extending round the side and back of our detached house to make a bigger kitchen and dining area. It'll be two floors.,true,extension,side:2;rear:2,detached,,,false
+U14,Yana,"Need a bit more space at the back, looking at going out around 12ft with a single floor extension. It's a terraced house.",true,extension,rear:1,terraced,,,false
+U15,Irene,"We own a small shop on the high street and want to add a single-storey extension at the rear, roughly 3.5 metres deep, for extra storage space.",false,non_householder,,,,,false

@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We own a small corner shop and want to put solar panels on the flat roof and replace the old single-glazed windows upstairs.\"",
+  "response": {
+    "householder": false,
+    "items": [
+      {
+        "work_type": "non_householder",
+        "evidence": "small corner shop"
+      },
+      {
+        "work_type": "solar",
+        "evidence": "put solar panels on the flat roof"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "replace the old single-glazed windows upstairs"
+      }
+    ]
+  }
+}

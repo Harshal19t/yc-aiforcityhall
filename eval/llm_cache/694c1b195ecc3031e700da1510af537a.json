@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Just converting the integral garage into a playroom with a new window where the garage door used to be, no extension being built.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "external_alteration",
+        "evidence": "converting the integral garage into a playroom"
+      },
+      {
+        "work_type": "external_alteration",
+        "evidence": "new window where the garage door used to be"
+      }
+    ]
+  }
+}

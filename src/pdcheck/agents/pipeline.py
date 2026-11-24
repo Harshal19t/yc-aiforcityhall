@@ -121,6 +121,7 @@ def run_pipeline(
     description: str,
     client: LLMClient,
     known: dict[str, Any] | None = None,
+    hybrid_numbers: bool = False,
 ) -> PipelineResult:
     """Run the full pipeline.
 
@@ -149,7 +150,7 @@ def run_pipeline(
         return _finish(result, start)
 
     # 2. Extract ---------------------------------------------------------------
-    facts, step = run_extractor(client, text)
+    facts, step = run_extractor(client, text, hybrid_numbers=hybrid_numbers)
     result.trace.append(step)
     if facts is None:
         facts = ExtractorOutput(extensions=[], dwelling_type=None, cladding=False, rear_depth_m=None, height_m=None)

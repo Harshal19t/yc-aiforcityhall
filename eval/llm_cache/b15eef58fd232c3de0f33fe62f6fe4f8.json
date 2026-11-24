@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Need a bit more space at the back, looking at going out around 12ft with a single floor extension. It's a terraced house.\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "rear",
+        "storeys": 1,
+        "evidence": "single floor extension"
+      }
+    ],
+    "dwelling_type": "terraced",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

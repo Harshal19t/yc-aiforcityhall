@@ -3,6 +3,8 @@ regex rules. It exists so the eval can answer "does the LLM beat simple rules?".
 
 Version history (disclosed in the README):
   v1  keyword lists from docs/labelling_rubric.md, written after reading the Sheffield cases.
+  v2.1 fixed a regex bug (\"about 2.5m\" matched \"out\") and only reads depth when an extension is present;
+       the number reader now lives in numbers.py and is shared with the hybrid pipeline.
   v2  made BEFORE running anything on eval/messy_cases.csv, so the baseline is not a strawman:
       number extraction ("4 metres deep"), "back" = rear, "extend" counts as an extension,
       "insulation", "flat roof" is not a flat, and a few obvious non-householder words
@@ -15,6 +17,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from pdcheck.agents.numbers import read_numbers
 from pdcheck.llm.client import LLMResponse
 
 _NON_HOUSEHOLDER = ["school", "warehouse", "office building", "shop", "academy", "college", "block of flats",
@@ -34,10 +37,6 @@ _WORK_KEYWORDS: list[tuple[str, list[str]]] = [
     ("solar", ["solar"]),
     ("demolition", ["demolition", "demolish", "knock down", "take down the old"]),
 ]
-
-_NUM = r"(\d+(?:\.\d+)?)"
-_UNIT = r"\s*(?:m|metres|meters|metre)\b"
-
 
 def _word(t: str, w: str) -> bool:
     return re.search(rf"\b{re.escape(w)}", t) is not None
@@ -85,13 +84,7 @@ def _extractor(text: str) -> dict[str, Any]:
             dwelling = d
             break
 
-    depth = height = None
-    m = re.search(rf"{_NUM}{_UNIT}\s*(?:deep|out|long)|(?:out|by)\s*(?:the back\s*)?(?:by\s*)?{_NUM}{_UNIT}", t)
-    if m:
-        depth = float(next(g for g in m.groups() if g))
-    m = re.search(rf"{_NUM}{_UNIT}\s*high", t)
-    if m:
-        height = float(m.group(1))
+    depth, height = read_numbers(text, has_extension=bool(extensions))
 
     clad_word = next((w for w in ["render", "external wall insulation", "insulation", "cladding", "pebble dash"]
                       if w in t), None)

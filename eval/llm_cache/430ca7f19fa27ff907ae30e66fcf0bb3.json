@@ -1,0 +1,13 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"Just want a small porch at the front entrance, around 2 metres high and 1.5 metres wide, nothing fancy.\"",
+  "response": {
+    "householder": true,
+    "items": [
+      {
+        "work_type": "porch",
+        "evidence": "small porch at the front entrance"
+      }
+    ]
+  }
+}

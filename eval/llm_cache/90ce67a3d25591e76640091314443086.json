@@ -1,0 +1,11 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"The old detached garage is falling apart so we're planning to knock it down and clear the space for parking instead. Not building anything new there.\"",
+  "response": {
+    "extensions": [],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.5:4b",
+  "user": "Description: \"We're thinking of extending round the side and back of our detached house to make a bigger kitchen and dining area. It'll be two floors.\"",
+  "response": {
+    "extensions": [
+      {
+        "position": "side_rear",
+        "storeys": 2,
+        "evidence": "extending round the side and back... It'll be two floors"
+      }
+    ],
+    "dwelling_type": "detached",
+    "cladding": false,
+    "rear_depth_m": null,
+    "height_m": null
+  }
+}
